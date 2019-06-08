@@ -28,6 +28,8 @@ if [[ $? == 0 ]]; then
         echo "gdlocal" | sudo -S python setup.py install
     elif [[ $username == "coreos" ]]; then
         echo "helloworld" | sudo -S python setup.py install
+    elif [[ $username == "cyril" ]]; then
+        cat ~/passwd.txt | sudo -S python setup.py install
     fi
 
 fi

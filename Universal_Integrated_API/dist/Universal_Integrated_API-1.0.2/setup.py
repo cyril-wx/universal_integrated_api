@@ -16,7 +16,9 @@ setup(
 	name="Universal_Integrated_API", 
 	version="1.0.2",
 	description="Universal Integrated API for CoreOS", 
-	author="Cyril", 
+	author="Cyril",
+	author_email="848873227@qq.com",
 	py_modules=[
 		"jc.utils",
+		"jc.csv_rw",
 	])
