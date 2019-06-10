@@ -13,7 +13,14 @@
 import sys
 import os
 import csv
+from utils import my_logger
 
+# 使用默认的 Logger 配置
+#logging.basicConfig(handlers=[logging.FileHandler("jc_utils.log", encoding="utf-8")], filemode="w", format="[%(asctime)s] %(levelname)s: [%(funcName)s]: %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.DEBUG)
+#logging.basicConfig(filename='jc_utils.log',level=logging.DEBUG,format='%(asctime)s %(filename)s [line:%(lineno)d] %(message)s',datefmt='%Y-%m-%d')
+
+## 初始化一个log处理器
+mlog=my_logger("jc_csv_rw")
 
 def print2DList(_2DList):
 	"""
@@ -26,11 +33,10 @@ def print2DList(_2DList):
 			for line in _2DList:
 				print(line)
 		except Exception as e:
-			print("print2DList -> Error _2DList data type.")
-			print(e)
+			mlog.warning("print2DList -> Error _2DList data type.")
+			mlog.exception(e)
 		finally:
-			print("print2DList -> Finish.")
-
+			mlog.info("print2DList -> Finish.")
 
 
 def readCSVFile(filePath):
@@ -46,17 +52,17 @@ def readCSVFile(filePath):
 				lines = csv.reader(f, dialect='excel')
 				for line in lines:
 					mdata.append(line)
-			print2DList(mdata)
-			print ("readCSVFile -> Reading successful.")
+			mlog.info("readCSVFile -> Reading successful.")
+			mlog.info(mdata)
 		else:                       # 兼容py2版本
 			with open(filePath, 'r') as f:
 				lines = csv.reader(f, dialect='excel')
 				for line in lines:
 					mdata.append(line)
-			print2DList(mdata)
-			print ("readCSVFile -> Reading successful.")
+			#print2DList(mdata)
+			mlog.info ("readCSVFile -> Reading successful.")
 	else:
-		print('readCSVFile -> no file: %s' %filePath)
+		mlog.warning('readCSVFile -> no file: %s' %filePath)
 		mdata = None
 	return mdata
 
@@ -75,25 +81,33 @@ def writeCSVFile(filePath, _2DList):
 			csvfile = open(filePath, 'a')
 
 		writer_ = csv.writer(csvfile, dialect='excel')
-		if isinstance(_2DList, (list)):
+		if isinstance(_2DList, list):
 			try:
 				for line in _2DList:
 					writer_.writerow(line)
-				print ("writeCSVFile -> Writing successful.")
+				mlog.info ("Writing successful.")
 				return True
 			except Exception as e:
-				print ("writeCSVFile -> Error data type")
-				print("TEST -> ",e)
+				mlog.warning ("Error data type")
+				mlog.exception(e)
 				return False
 		else:
-			print ("writeCSVFile -> Error data type")
+			print ("Error data type")
 	else:
 		dirname, filename = os.path.split(os.path.abspath(filePath))
 		if(os.access(dirname, os.W_OK)):  #检查路径是否可写，即是否可创建文件
 			cmd = 'cd '+ dirname + ' ; touch ' + filename + ' ;'
 			os.system(cmd)
 			writeCSVFile(filePath, _2DList)
+			mlog.info("Writing csv file successfully.")
 			return True
 		else:
-			print("writeCSVFile -> Current path no access to create files.")
+			mlog.exception("Current path no access to create files.")
 	return False
+
+if __name__ == "__main__":
+	writeCSVFile("/tmp/test.csv", [
+		[1,2,3,4,5],
+		[21, 22, 23, 24, 25],
+		[31, 32, 33, 34, 35],
+	])

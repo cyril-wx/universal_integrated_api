@@ -3,4 +3,5 @@ README.txt
 setup.py
 jc/__init__.py
 jc/csv_rw.py
+jc/rsync_tools.py
 jc/utils.py

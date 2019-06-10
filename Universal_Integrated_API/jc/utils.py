@@ -12,6 +12,7 @@
 """
 import sys
 import os
+import logging
 
 
 def readCMD(args=[], isShell=True):
@@ -42,9 +43,6 @@ def readCMD(args=[], isShell=True):
 		if buff != '':
 			buff.strip().replace("\n", "")
 			rev.append(buff)
-			# print(buff)
-#    if p.wait() == 0:
-#        res = True
 
 	return (p.wait(), rev)  ## res(Bool): The cmd is running successful?
 							## rev(String): The cmd result string.
@@ -99,13 +97,36 @@ def fileDataCompare(f_1, f_2):
 			f_b.close()
 		return True
 
+def my_logger(log_obj):
+	"""
+	# 自定义log显示及输出
+	:param log_obj: object name who exec logger
+	:return: logger obj
+	"""
+	logger = logging.getLogger(log_obj)
+	#print(logger.handlers)
+	logger.setLevel(logging.INFO)
+
+	console_handle = logging.StreamHandler()
+	file_handle = logging.FileHandler(filename=log_obj+".log")
+	formatter = logging.Formatter('%(asctime)s - %(name)s:%(funcName)s - %(levelname)s - %(message)s ')
+	console_handle.setFormatter(formatter)
+	file_handle.setFormatter(formatter)
+	logger.addHandler(console_handle)
+	logger.addHandler(file_handle)
+
+	return logger
 
 
 if "__main__" == __name__:
 	dirname, filename = os.path.split(os.path.abspath(sys.argv[0]))
+
+	## 初始化一个log管理器
+	mlog=my_logger("jc_utils")
+
 	#filePath = dirname+"/csvData.csv"
 	filePath = '/tmp/autopanic_ips_stats.csv'
-	print("filePath : ", filePath)
+	mlog.info("filePath : ", filePath)
 
 	data=[]
 	data.append(['s1', 'Online', 'master'])

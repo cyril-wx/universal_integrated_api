@@ -14,11 +14,12 @@
 from distutils.core import setup
 setup(
 	name="Universal_Integrated_API", 
-	version="1.0.2",
+	version="1.0.3",
 	description="Universal Integrated API for CoreOS", 
 	author="Cyril",
 	author_email="848873227@qq.com",
 	py_modules=[
 		"jc.utils",
 		"jc.csv_rw",
+		"jc.rsync_tools",
 	])

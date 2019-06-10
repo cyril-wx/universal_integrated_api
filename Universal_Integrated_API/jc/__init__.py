@@ -17,4 +17,5 @@
 __all__ = [
 	"utils",
 	"csv_rw",
+	"rsync_tools",
 ]
