@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b061bc7-93dc-4545-9a05-90b85d4b294e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/jc/rsync_tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANIFEST" beforeDir="false" afterPath="$PROJECT_DIR$/MANIFEST" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/jc/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/jc/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/jc/csv_rw.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/jc/csv_rw.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/jc/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/jc/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/Universal_Integrated_API-1.0.2.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/dist/Universal_Integrated_API-1.0.2.tar.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jc/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/jc/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jc/csv_rw.py" beforeDir="false" afterPath="$PROJECT_DIR$/jc/csv_rw.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jc/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/jc/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
-    </list>
+    <list default="true" id="0b061bc7-93dc-4545-9a05-90b85d4b294e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
