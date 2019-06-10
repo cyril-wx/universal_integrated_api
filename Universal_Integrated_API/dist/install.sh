@@ -1,7 +1,7 @@
 #!/bin/bash
 # 此脚本只适用于开发调试机器,并且应和安装包放置于同一目录下,该目录只能包含一个安装包
 cd `dirname $0`
-#username=`whoami`
+username=`whoami`
 
 install_pacakge=`ls | grep ".tar.gz"`
 a=`pip install $install_pacakge 1>/dev/null 2>/dev/null; echo $?`

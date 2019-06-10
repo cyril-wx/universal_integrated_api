@@ -11,12 +11,12 @@
 # @Tips: 			                            #
 #**********************************************	#
 
-import csv_rw as jcsv
-import utils as jt
+from jc import utils as jt
+from jc import csv_rw as jcsv
 import os
 import re
 import sys
-from utils import my_logger as mlog
+
 
 
 class SyncTool:
@@ -41,7 +41,7 @@ class SyncTool:
 		:param conf_path: 配置文件，存放集群内所有机器IP,csv文件格式存储
 		"""
 		# 初始化一个log处理器
-		self.mlog = mlog("jc_rsync_ptool")
+		self.mlog = jt.my_logger("jc_rsync_ptool")
 		try:
 			self.ip_pool = jcsv.readCSVFile(conf_path)
 			self.ip_pool.remove(self.ip_pool[0])

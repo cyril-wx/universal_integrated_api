@@ -13,14 +13,14 @@
 import sys
 import os
 import csv
-from utils import my_logger
+from jc import utils as jt
 
 # 使用默认的 Logger 配置
 #logging.basicConfig(handlers=[logging.FileHandler("jc_utils.log", encoding="utf-8")], filemode="w", format="[%(asctime)s] %(levelname)s: [%(funcName)s]: %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.DEBUG)
 #logging.basicConfig(filename='jc_utils.log',level=logging.DEBUG,format='%(asctime)s %(filename)s [line:%(lineno)d] %(message)s',datefmt='%Y-%m-%d')
 
 ## 初始化一个log处理器
-mlog=my_logger("jc_csv_rw")
+mlog=jt.my_logger("jc_csv_rw")
 
 def print2DList(_2DList):
 	"""
@@ -52,7 +52,7 @@ def readCSVFile(filePath):
 				lines = csv.reader(f, dialect='excel')
 				for line in lines:
 					mdata.append(line)
-			mlog.info("readCSVFile -> Reading successful.")
+			mlog.info("Reading successful.")
 			mlog.info(mdata)
 		else:                       # 兼容py2版本
 			with open(filePath, 'r') as f:
@@ -60,9 +60,9 @@ def readCSVFile(filePath):
 				for line in lines:
 					mdata.append(line)
 			#print2DList(mdata)
-			mlog.info ("readCSVFile -> Reading successful.")
+			mlog.info ("Reading successful.")
 	else:
-		mlog.warning('readCSVFile -> no file: %s' %filePath)
+		mlog.warning('Not found file: %s' %filePath)
 		mdata = None
 	return mdata
 

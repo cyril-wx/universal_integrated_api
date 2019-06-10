@@ -8,17 +8,14 @@
 # @Author: Cyril				                #
 # @Mail: 848873227@qq.com                       #
 # @Create: 2019-06-08				            #
-# @Tips:                                        #
+# @Tips: __all__ = ['a','b']”                   #
+#       表示当前包内只有a,b两个模块可以导出,         #
+#       不启用__all__则默认可导出所有模块           #
 #**********************************************	#
 """
-from distutils.core import setup
-setup(
-	name="Universal_Integrated_API", 
-	version="1.0.2",
-	description="Universal Integrated API for CoreOS", 
-	author="Cyril",
-	author_email="848873227@qq.com",
-	py_modules=[
-		"jc.utils",
-		"jc.csv_rw",
-	])
+
+__all__ = [
+	"utils",
+	"csv_rw",
+	"rsync_tools",
+]

@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 """
-常用工具类
+#**********************************************	#
+# 常用工具类（模块）                               #
+#----------------------------------------------	#
+# @Author: Cyril				                #
+# @Mail: 848873227@qq.com                       #
+# @Create: 2019-06-08				            #
+# @Tips:                                        #
+#**********************************************	#
 """
 import sys
 import os
-import csv
+import logging
 
 
 def readCMD(args=[], isShell=True):
@@ -14,7 +21,7 @@ def readCMD(args=[], isShell=True):
     #@param args(list): cmd script path & cmd params
     #@param isShell(Bool): The cmd is shell cmd or not.
     #@param timeout(int): set timeout(must > 0), default -1 means never timeout
-    #@return (res, rev): res: result status code
+    #@return (res, rev): res: stdout status code(int)
     #                   rev: result string
     '''
 	import subprocess
@@ -36,9 +43,6 @@ def readCMD(args=[], isShell=True):
 		if buff != '':
 			buff.strip().replace("\n", "")
 			rev.append(buff)
-			# print(buff)
-#    if p.wait() == 0:
-#        res = True
 
 	return (p.wait(), rev)  ## res(Bool): The cmd is running successful?
 							## rev(String): The cmd result string.
@@ -55,6 +59,9 @@ def getLocalHostIP():
 		print(e)
 	finally:
 		return IP
+
+def pingRemoteIP():
+	pass
 
 def fileDataCompare(f_1, f_2):
 	"""
@@ -90,94 +97,36 @@ def fileDataCompare(f_1, f_2):
 			f_b.close()
 		return True
 
-# --csv 文件读写操作2 --
-# Create on 18/12/05 by Cyril
-def print2DList(_2DList):
+def my_logger(log_obj):
 	"""
-	打印二维列表
-	:param _2DList:
-	:return: None
+	# 自定义log显示及输出
+	:param log_obj: object name who exec logger
+	:return: logger obj
 	"""
-	if _2DList:
-		try:
-			for line in _2DList:
-				print(line)
-		except Exception as e:
-			print("print2DList -> Error _2DList data type.")
-			print(e)
-		finally:
-			print("print2DList -> Finish.")
+	logger = logging.getLogger(log_obj)
+	#print(logger.handlers)
+	logger.setLevel(logging.INFO)
 
-def readCSVFile(filePath):
-	"""
-	# 读取csv文件 (obj.dict)
-	:param filePath:
-	:return: [] / None
-	"""
-	mdata = []
-	if(os.path.exists(filePath)):
-		if sys.version > "3":      # 兼容py3版本
-			with open(filePath, 'r', newline='', encoding="UTF-8-sig") as f:
-				lines = csv.reader(f, dialect='excel')
-				for line in lines:
-					mdata.append(line)
-			print2DList(mdata)
-			print ("readCSVFile -> Reading successful.")
-		else:                       # 兼容py2版本
-			with open(filePath, 'r') as f:
-				lines = csv.reader(f, dialect='excel')
-				for line in lines:
-					mdata.append(line)
-			print2DList(mdata)
-			print ("readCSVFile -> Reading successful.")
-	else:
-		print('readCSVFile -> no file: %s' %filePath)
-		mdata = None
-	return mdata
+	console_handle = logging.StreamHandler()
+	file_handle = logging.FileHandler(filename=log_obj+".log")
+	formatter = logging.Formatter('%(asctime)s - %(name)s:%(funcName)s - %(levelname)s - %(message)s ')
+	console_handle.setFormatter(formatter)
+	file_handle.setFormatter(formatter)
+	logger.addHandler(console_handle)
+	logger.addHandler(file_handle)
 
-def writeCSVFile(filePath, _2DList):
-	"""
-	# 写入csv文件（obj.dict）
-	# 若csv文件存在，则追加写入
-	:param filePath:
-	:param _2DList:
-	:return: True/False
-	"""
-	if(os.path.exists(filePath)):
-		if sys.version > "3.5":     # 兼容py3版本
-			csvfile = open(filePath, 'a', newline='', encoding="UTF-8") # newline='' 为python3
-		else:                       # 兼容py2版本
-			csvfile = open(filePath, 'a')
+	return logger
 
-		writer_ = csv.writer(csvfile, dialect='excel')
-		if isinstance(_2DList, (list)):
-			try:
-				for line in _2DList:
-					writer_.writerow(line)
-				print ("writeCSVFile -> Writing successful.")
-				return True
-			except Exception as e:
-				print ("writeCSVFile -> Error data type")
-				print("TEST -> ",e)
-				return False
-		else:
-			print ("writeCSVFile -> Error data type")
-	else:
-		dirname, filename = os.path.split(os.path.abspath(filePath))
-		if(os.access(dirname, os.W_OK)):  #检查路径是否可写，即是否可创建文件
-			cmd = 'cd '+ dirname + ' ; touch ' + filename + ' ;'
-			os.system(cmd)
-			writeCSVFile(filePath, _2DList)
-			return True
-		else:
-			print("writeCSVFile -> Current path no access to create files.")
-	return False
 
 if "__main__" == __name__:
 	dirname, filename = os.path.split(os.path.abspath(sys.argv[0]))
+
+	## 初始化一个log管理器
+	mlog=my_logger("jc_utils")
+
 	#filePath = dirname+"/csvData.csv"
 	filePath = '/tmp/autopanic_ips_stats.csv'
-	print("filePath : ", filePath)
+	mlog.info("filePath : ", filePath)
 
 	data=[]
 	data.append(['s1', 'Online', 'master'])
@@ -186,5 +135,6 @@ if "__main__" == __name__:
 	data.append(['s4', 'Online', 'slave'])
 	data.append(['s5', 'Online', 'slave'])
 	#writeCSVFile(filePath, _2DList=data)
+	from csv_rw import readCSVFile
 	readCSVFile(filePath)
 
