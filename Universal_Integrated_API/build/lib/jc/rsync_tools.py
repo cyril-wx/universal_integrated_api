@@ -219,7 +219,7 @@ def main():
 	:return:
 	"""
 	from utils import my_logger
-	mlog = my_logger("jc_rsync_ptool")
+	mlog = my_logger("jc_rsync_tools")
 	module = sys.modules[__name__]
 	# getattr() 函数用于返回一个对象属性值。
 	# sys.argv 是获取运行python文件的时候命令行参数,且以list形式存储参数

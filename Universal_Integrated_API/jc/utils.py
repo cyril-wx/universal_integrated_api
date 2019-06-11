@@ -37,10 +37,9 @@ def readCMD(args=[], isShell=True):
 		else:                   ## python2 +
 			buff = p.stdout.readline().strip().replace("\r\n", "")
 
-		if p.poll() != None:
-			if buff == '':
+		if p.poll() != None and buff=="":
 				break;
-		if buff != '':
+		if buff != "":
 			buff.strip().replace("\n", "")
 			rev.append(buff)
 
@@ -124,6 +123,7 @@ if "__main__" == __name__:
 	## 初始化一个log管理器
 	mlog=my_logger("jc_utils")
 
+	'''
 	#filePath = dirname+"/csvData.csv"
 	filePath = '/tmp/autopanic_ips_stats.csv'
 	mlog.info("filePath : ", filePath)
@@ -138,3 +138,7 @@ if "__main__" == __name__:
 	from csv_rw import readCSVFile
 	readCSVFile(filePath)
 
+	'''
+
+	(res,rev) = readCMD(["ping www.baidu.com -c10"], True)
+	print(res,rev)
