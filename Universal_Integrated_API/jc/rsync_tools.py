@@ -18,7 +18,6 @@ import re
 import sys
 
 
-
 class SyncTool:
 	#logger = logging.getLogger("TEST").setLevel(logging.DEBUG)
 	# 使用默认的 Logger 配置
@@ -45,7 +44,7 @@ class SyncTool:
 		try:
 			self.ip_pool = jcsv.readCSVFile(conf_path)
 			self.ip_pool.remove(self.ip_pool[0])
-			conf_parent_path = os.path.split()[0]
+			conf_parent_path = os.path.split(conf_path)[0]
 		except Exception as e:
 			self.mlog.warning("%s initializing failed." %__name__)
 			self.mlog.exception(e)
