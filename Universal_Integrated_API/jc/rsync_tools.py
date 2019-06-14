@@ -212,7 +212,6 @@ class SyncTool:
 
 
 
-
 def main():
 	"""
 	## Python的入口开始
