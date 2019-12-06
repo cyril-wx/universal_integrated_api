@@ -1,3 +1,4 @@
+import logging
 class MyLogger(object):
 	"""
 	# 自定义log输出器
