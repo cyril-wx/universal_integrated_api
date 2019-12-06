@@ -16,7 +16,7 @@ def func_time(f):
         start = time.time()
         result = f(*args, **kwargs)
         end = time.time()
-        print f.__name__, 'took', end - start, 'seconds'
+        print ("{}, {}, {}, {}").format(f.__name__, 'took', end - start, 'seconds')
         return result
 
     return wrapper
@@ -46,7 +46,7 @@ def func_cprofile(f):
 @func_cprofile
 def test():
     for x in range(100000):
-        print x
+        print (x)
         
 if __name__ == "__main__":
     test()
