@@ -35,6 +35,8 @@ def func_cprofile(f):
             result = f(*args, **kwargs)
             profile.disable()
             return result
+        except Exception as e:
+            print (e)
         finally:
             profile.print_stats(sort='time')
 
