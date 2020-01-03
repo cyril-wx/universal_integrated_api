@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import logging
 class MyLogger(object):
 	"""
@@ -11,7 +12,10 @@ class MyLogger(object):
 	mlog = None
 	def __new__(cls, *args, **kw):
 		if cls._instance is None:
-			cls._instance = object.__new__(cls, *args, **kw)
+			try:        # Python2
+				cls._instance = object.__new__(cls, *args, **kw)
+			except TypeError:   # Python3
+				cls._instance = object.__new__(cls)
 		cls._log_obj = args[0]
 		cls._log_path = args[1]
 		return cls._instance
